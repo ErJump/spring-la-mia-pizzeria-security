@@ -24,7 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/pizza")
 public class PizzaController {
 	
 	@Autowired
@@ -36,7 +36,7 @@ public class PizzaController {
 	@Autowired
 	private IngredientService iService;
 	
-	@GetMapping
+	@GetMapping("/user")
 	public String index(Model model) {
 		
 		List<Pizza> pizzas = pizzaService.findAll();
@@ -44,7 +44,7 @@ public class PizzaController {
 		return "index";
 	}
 	
-	@GetMapping("/pizza/create")
+	@GetMapping("/admin/create")
 	public String createPizza(Model model) {
 		List<Ingredient> ingredients = iService.findAll();
 		List<Promotion> promotions = prService.findAll(); 
@@ -56,7 +56,7 @@ public class PizzaController {
 		return "pizza-create";
 	}
 	
-	@PostMapping("/pizza/create")
+	@PostMapping("/admin/create")
 	public String storePizza(@Valid @ModelAttribute("pizza") Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
@@ -65,10 +65,10 @@ public class PizzaController {
 		}
 		
 		pizzaService.save(pizza);
-		return "redirect:/";
+		return "redirect:/pizza/user";
 	}
 	
-	@GetMapping("/pizza/edit/{id}")
+	@GetMapping("/admin/edit/{id}")
 	public String editPizza(@PathVariable("id") int id, Model model) {
 		
 		Optional<Pizza> optPizza = pizzaService.getPizzaById(id);
@@ -82,7 +82,7 @@ public class PizzaController {
 		return "pizza-edit";
 	}
 	
-	@PostMapping("/pizza/edit")
+	@PostMapping("/admin/edit")
 	public String updatePizza(@Valid @ModelAttribute("pizza") Pizza pizza, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		
 		if(bindingResult.hasErrors()) {
@@ -91,18 +91,18 @@ public class PizzaController {
 		}
 		
 		pizzaService.save(pizza);
-		return "redirect:/";
+		return "redirect:/pizza/user";
 	}
 	
-	@GetMapping("/pizza/delete/{id}")
+	@GetMapping("/admin/delete/{id}")
 	public String deletePizza(@PathVariable("id") int id) {
 		
 		pizzaService.deletePizzaById(id);
 		
-		return "redirect:/";
+		return "redirect:/pizza/user";
 	}
 	
-	@GetMapping("/pizza/search")
+	@GetMapping("/user/search")
 	public String getSearchPizzaByName(Model model, @RequestParam(name = "query", required = false) String query) {
 		
 		List<Pizza> pizzas = query == null ? pizzaService.findAll() : pizzaService.findByName(query);

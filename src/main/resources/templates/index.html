@@ -14,8 +14,8 @@
 				<h1>Pizze</h1>
 			</div>
 			<div class="col-12 d-flex justify-content-end">
-				<a href="/pizza/create" class="btn btn-primary">+</a>
-				<a href="/pizza/search" class="btn btn-success">Cerca</a>
+				<a href="admin/create" class="btn btn-primary">+</a>
+				<a href="user/search" class="btn btn-success">Cerca</a>
 			</div>
 			<div class="col-12">
 				<table th:if="${!pizzas.isEmpty()}" class="table table-dark">
@@ -34,8 +34,8 @@
 						<td th:text="*{promotion}"></td>
 						<td th:text="*{ingredients}"></td>
 						<td>
-							<a th:href="@{/pizza/edit/{id}(id=${pizza.id})}" class="btn btn-primary">Modifica</a>
-							<a th:href="@{/pizza/delete/{id}(id=${pizza.id})}" class="btn btn-danger">Elimina</a>
+							<a th:href="@{admin/edit/{id}(id=${pizza.id})}" class="btn btn-primary">Modifica</a>
+							<a th:href="@{admin/delete/{id}(id=${pizza.id})}" class="btn btn-danger">Elimina</a>
 						</td>
 					</tr>
 				</table>
