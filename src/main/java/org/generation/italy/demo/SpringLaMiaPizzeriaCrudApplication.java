@@ -145,9 +145,9 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 		roles.add(user);
 		roles.add(admin);
 		
-		User u1 = new User("user","user",user);
-		User a1 = new User("admin","admin",admin);
-		User god = new User("god", "god", roles);
+		User u1 = new User("user","{noop}user",user);
+		User a1 = new User("admin","{noop}admin",admin);
+		User god = new User("god", "{noop}god", roles);
 		
 		uS.save(u1);
 		uS.save(a1);
