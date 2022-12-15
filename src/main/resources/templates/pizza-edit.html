@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 			<div class="col-12">
-				<form method="POST" action="/pizza/edit" th:object="${pizza}">
+				<form method="POST" th:action="@{/pizza/admin/edit}" th:object="${pizza}">
 					<input type="number" name="id" th:field="*{id}" class="d-none">
 					<label>Nome</label><br>
 					<input type="text" name="name" th:field="*{name}">

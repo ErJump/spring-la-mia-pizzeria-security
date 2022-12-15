@@ -22,7 +22,7 @@
 				</ul>
 			</div>
 			<div class="col-12">
-				<form method="POST" action="/pizza/create" th:object="${pizza}">
+				<form method="POST" th:action="@{/pizza/admin/create}" th:object="${pizza}">
 					<label>Nome</label><br>
 					<input type="text" name="name" th:field="*{name}" class="mb-3">
 					<br>
