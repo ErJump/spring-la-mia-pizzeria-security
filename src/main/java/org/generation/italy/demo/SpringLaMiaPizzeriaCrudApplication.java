@@ -2,16 +2,22 @@ package org.generation.italy.demo;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.generation.italy.demo.pojo.Drink;
 import org.generation.italy.demo.pojo.Ingredient;
 import org.generation.italy.demo.pojo.Pizza;
 import org.generation.italy.demo.pojo.Promotion;
+import org.generation.italy.demo.pojo.Role;
+import org.generation.italy.demo.pojo.User;
 import org.generation.italy.demo.service.DrinkService;
 import org.generation.italy.demo.service.IngredientService;
 import org.generation.italy.demo.service.PizzaService;
 import org.generation.italy.demo.service.PromotionService;
+import org.generation.italy.demo.service.RoleService;
+import org.generation.italy.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -31,6 +37,12 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 	
 	@Autowired
 	private IngredientService ingredientService;
+	
+	@Autowired 
+	private UserService uS;
+	
+	@Autowired
+	private RoleService rS;
 
 	
 	public static void main(String[] args) {
@@ -110,17 +122,36 @@ public class SpringLaMiaPizzeriaCrudApplication implements CommandLineRunner{
 //			}
 //		}
 		
-		System.err.println("---------------------------");
-		List<Pizza> pizzas = pizzaService.findAllWIngredient();
-		for (Pizza pizza : pizzas) {
-			System.err.println(pizza + "\n\t" + pizza.getIngredients());
-		}
+//		System.err.println("---------------------------");
+//		List<Pizza> pizzas = pizzaService.findAllWIngredient();
+//		for (Pizza pizza : pizzas) {
+//			System.err.println(pizza + "\n\t" + pizza.getIngredients());
+//		}
+//		
+//		System.err.println("---------------------------");
+//		List<Ingredient> ingredients = ingredientService.findAllWPizza();
+//		for (Ingredient i : ingredients) {
+//			System.err.println(i +  "\n\t" + i.getPizzas());
+//		}
 		
-		System.err.println("---------------------------");
-		List<Ingredient> ingredients = ingredientService.findAllWPizza();
-		for (Ingredient i : ingredients) {
-			System.err.println(i +  "\n\t" + i.getPizzas());
-		}
+		//---------Auth-------------
+		Role admin = new Role("admin");
+		Role user = new Role("user");
+		
+		rS.save(admin);
+		rS.save(user);
+		
+		Set<Role> roles = new HashSet<>();
+		roles.add(user);
+		roles.add(admin);
+		
+		User u1 = new User("user","user",user);
+		User a1 = new User("admin","admin",admin);
+		User god = new User("god", "god", roles);
+		
+		uS.save(u1);
+		uS.save(a1);
+		uS.save(god);
 		
 		
 
