@@ -14,7 +14,7 @@
 				<h1>Pizze</h1>
 			</div>
 			<div class="col-12 d-flex justify-content-end">
-				<a href="admin/create" class="btn btn-primary">+</a>
+				<a href="admin/create" class="btn btn-primary" sec:authorize="hasAuthority('ADMIN')">+</a>
 				<a href="user/search" class="btn btn-success">Cerca</a>
 			</div>
 			<div class="col-12">
@@ -25,7 +25,7 @@
 						<th>Prezzo</th>
 						<th>Promozione</th>
 						<th>Ingredienti</th>
-						<th>Azioni</th>
+						<th sec:authorize="hasAuthority('ADMIN')">Azioni</th>
 					</tr>
 					<tr th:each="pizza : ${pizzas}" th:object="${pizza}">
 						<td th:text="*{name}"></td>
@@ -33,7 +33,7 @@
 						<td th:text="*{price}"></td>
 						<td th:text="*{promotion}"></td>
 						<td th:text="*{ingredients}"></td>
-						<td>
+						<td sec:authorize="hasAuthority('ADMIN')">
 							<a th:href="@{admin/edit/{id}(id=${pizza.id})}" class="btn btn-primary">Modifica</a>
 							<a th:href="@{admin/delete/{id}(id=${pizza.id})}" class="btn btn-danger">Elimina</a>
 						</td>
